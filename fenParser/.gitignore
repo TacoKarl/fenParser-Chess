@@ -1,0 +1,6 @@
+
+# Ignore the executable
+fenParser
+
+# Ignore object files
+*.o
