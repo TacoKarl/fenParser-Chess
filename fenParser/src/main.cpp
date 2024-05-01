@@ -72,9 +72,22 @@ int main(int argc, char *argv[]) {
   }
 
   // print out moves
+  int moveCounter = 1;
   for (const auto &move : moveVector) {
-    std::cout << move << std::endl;
+    std::cout << "Move " << moveCounter << "\n" << move << std::endl;
+    moveCounter++;
   }
+  moveCounter = 1;
+
+  int chosenMove;
+
+  std::cout << "Choose a move (returns the uci of the chosen movenumber)"
+            << std::endl;
+  std::cout << "Choose between 1 and " << moveVector.size() << std::endl;
+
+  std::cin >> chosenMove;
+
+  moveVector[chosenMove - 1].getUci();
 
   curl_global_cleanup(); // cleanup curl after using
 
