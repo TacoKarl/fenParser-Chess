@@ -1,7 +1,9 @@
-#include "curling.h" //include the libcurl library for curling
-#include "openings.h"
+#include "../include/curling.h" //include the libcurl library for curling
+#include "../include/move.h"
+#include "../include/rapidjson/document.h" // json parser from  https://github.com/Tencent/rapidjson
 #include <iostream>
 #include <string>
+#include <vector>
 
 int main(int argc, char *argv[]) {
 
@@ -31,11 +33,26 @@ int main(int argc, char *argv[]) {
             << "\nto https://explorer.lichess.ovh/masters?fen=" << fenString
             << std::endl;
 
-  std::string res = curl(fenString);
+  std::string jsonRes = curl(fenString);
+
+  rapidjson::Document doc;
+  doc.Parse(jsonRes.c_str());
+
+  if (!doc.IsObject()) {
+    std::cerr << "Invalid JSON format" << std::endl;
+    return 1;
+  }
+  // if doc has member "moves" and moves.IsArray()
+  // Extract the "moves" array from the JSON
+  const rapidjson::Value &moves = doc["moves"];
+  if (!moves.IsArray()) {
+    std::cerr << "No 'moves' array found in JSON" << std::endl;
+    return 1;
+  }
 
   curl_global_cleanup(); // cleanup curl after using
 
-  Openings test[2];
+  Move test[2];
   test[0].update("g8f6", "Nf6", 180066, 240676, 130039, 2414);
   test[1].update("d7d5", "d5", 75185, 108855, 45846, 2405);
 

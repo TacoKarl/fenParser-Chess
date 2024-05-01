@@ -1,18 +1,22 @@
 CXX=g++
 VER=-std=c++20
-CFLAGS=
+CFLAGS=-Iinclude
 LIBS=-lcurl
-SRC=$(wildcard *.cpp)
-OBJS=$(SRC:%.cpp=%.o)
-EXE=fenParser
+SRC=$(wildcard src/*.cpp)
+OBJS=$(SRC:src/%.cpp=build/%.o)
+EXE=bin/fenParser
 
-$(EXE) : $(OBJS)
+$(EXE) : $(OBJS) | bin
 	$(CXX) $(VER) $(CFLAGS) $(OBJS) -o $(EXE) $(LIBS)
 
-%.o : %.cpp
+build/%.o : src/%.cpp include/*.h | build
 	$(CXX) $(VER) $(CFLAGS) -c $< -o $@ $(LIBS)
 
+build :
+	mkdir -p build
+
+bin :
+	mkdir -p bin
+
 clean :
-	rm -f $(EXE) $(OBJS)
-
-
+	rm -rf $(EXE) build

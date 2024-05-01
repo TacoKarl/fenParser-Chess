@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 
-class Openings {
+class Move {
 private:
   int white;
   int draws;
@@ -13,10 +13,10 @@ private:
   int total;
 
 public:
-  Openings() { total = 1; } // default constructor
+  Move() { total = 1; } // default constructor
 
-  Openings(std::string uci, std::string san, int white, int draws, int black,
-           int averageRating)
+  Move(std::string uci, std::string san, int white, int draws, int black,
+       int averageRating)
       : uci(uci), san(san), white(white), draws(draws), black(black),
         averageRating(averageRating) {
     total = white + black + draws;
@@ -33,14 +33,14 @@ public:
   }
 
   // operator << overload
-  friend std::ostream &operator<<(std::ostream &os, const Openings &openings) {
-    os << "UCI: " << openings.uci << "\nSAN: " << openings.san
+  friend std::ostream &operator<<(std::ostream &os, const Move &move) {
+    os << "UCI: " << move.uci << "\nSAN: " << move.san
        << "\nWinning percentage\nWhite: "
-       << (double)((double)openings.white / (double)openings.total) * 100
+       << (double)((double)move.white / (double)move.total) * 100
        << "%\nBlack: "
-       << (double)((double)openings.black / (double)openings.total) * 100
+       << (double)((double)move.black / (double)move.total) * 100
        << "%\nDraws: "
-       << (double)((double)openings.draws / (double)openings.total) * 100 << "%"
+       << (double)((double)move.draws / (double)move.total) * 100 << "%"
        << std::endl;
     return os;
   }
