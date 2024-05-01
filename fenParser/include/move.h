@@ -46,13 +46,7 @@ public:
   }
 
   std::string getUci() {
-    std::string res;
-    res.push_back(uci[0]); // Push the first character directly
-    res.push_back(uci[1]); // Push the second character directly
-    res.push_back(' ');    // Push a space between the tiles
-    res.push_back(uci[2]); // Push the third character directly
-    res.push_back(uci[3]); // Push the fourth character directly
     std::cout << uci << std::endl;
-    return res;
+    return uci;
   }
 };

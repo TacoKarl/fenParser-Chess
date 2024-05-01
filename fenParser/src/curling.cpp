@@ -8,12 +8,12 @@ size_t writeCallback(char *ptr, size_t size, size_t nmemb,
   return totalsize;
 }
 
-std::string curl(std::string fenString) {
+std::string curl(std::string playString) {
   CURL *handle = curl_easy_init();
   if (handle) {
 
-    std::string url =
-        "https://explorer.lichess.ovh/masters?fen=" + fenString; // curling url
+    std::string url = "https://explorer.lichess.ovh/masters?play=" +
+                      playString; // curling url
 
     std::string response; // for curl response
 
