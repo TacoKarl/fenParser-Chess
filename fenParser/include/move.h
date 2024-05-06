@@ -56,6 +56,7 @@ class Database {
 private:
   std::string playString;
   static std::vector<Move> movesVector;
+  // TODO: replace path/to/socket with real path
   const char socketPath[100] = "path/to/unix/socket";
 
 public:

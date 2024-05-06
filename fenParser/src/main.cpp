@@ -46,7 +46,8 @@ int main(/*int argc, char *argv[]*/) {
               << std::endl;
 
     std::cout << DB;
-    /*
+
+    DB.sendMove(); /*
         std::string jsonRes = curl(playString);
 
         rapidjson::Document doc;
