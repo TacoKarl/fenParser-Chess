@@ -1,5 +1,7 @@
+#include <cstddef>
 #include <iostream>
 #include <string>
+#include <vector>
 
 class Move {
 private:
@@ -44,9 +46,29 @@ public:
        << std::endl;
     return os;
   }
-
   std::string getUci() {
     std::cout << uci << std::endl;
     return uci;
+  }
+};
+
+class Database {
+private:
+  std::string playString;
+  static std::vector<Move> movesVector;
+  const char socketPath[100] = "path/to/unix/socket";
+
+public:
+  std::string rcv();
+  std::vector<Move> getFromDatabase();
+  int sendMove();
+  friend std::ostream &operator<<(std::ostream &os, const Database DB) {
+    int movesCounter = 1;
+    for (int i = 0; i < movesVector.size(); i++) {
+      os << "Move " << movesCounter << std::endl;
+      os << movesVector[i] << std::endl;
+      movesCounter++;
+    }
+    return os;
   }
 };
